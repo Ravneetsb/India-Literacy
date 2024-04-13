@@ -20,11 +20,9 @@ d3.json(
     'https://gist.githubusercontent.com/HarryStevens/c9cf86eba753ba8650fb466e37d538d2/raw/c24913d2d636ecd84a4da73920ba92935f93c612/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
-    var subunits = drawSubUnits(data);
-    colorSubunits(subunits);
-    // drawSubUnitLabels(data);
-    // drawPlaces(data);
-    drawOuterBoundary(data, boundary);
+    var subunits = drawStates(data);
+    colorStates(subunits);
+    drawBoundary(data, boundary);
 });
 
 function centerZoom(data) {
@@ -55,7 +53,8 @@ function centerZoom(data) {
     return o;
 }
 
-function drawOuterBoundary(data, boundary) {
+function drawBoundary(data, boundary) {
+    d3.json("literacy.csv")
     g.append('path')
         .datum(boundary)
         .attr('d', path)
@@ -64,40 +63,8 @@ function drawOuterBoundary(data, boundary) {
         .attr('stroke', '#3a403d');
 }
 
-function drawPlaces(data) {
-    g.append('path')
-        .datum(
-            topojson.feature(data, data.objects.places),
-        )
-        .attr('d', path)
-        .attr('class', 'place');
 
-    g.selectAll('.place-label')
-        .data(
-            topojson.feature(data, data.objects.places)
-                .features,
-        )
-        .enter()
-        .append('text')
-        .attr('class', 'place-label')
-        .attr('transform', function (d) {
-            return (
-                'translate(' +
-                projection(d.geometry.coordinates) +
-                ')'
-            );
-        })
-        .attr('dy', '.35em')
-        .attr('x', 6)
-        .attr('text-anchor', 'start')
-        .style('font-size', '.7em')
-        .style('text-shadow', '0px 0px 2px #fff')
-        .text(function (d) {
-            return d.properties.name;
-        });
-}
-
-function drawSubUnits(data) {
+function drawStates(data) {
     var subunits = g
         .selectAll('.subunit')
         .data(
@@ -114,36 +81,20 @@ function drawSubUnits(data) {
     return subunits;
 }
 
-function drawSubUnitLabels(data) {
-    g.selectAll('.subunit-label')
-        .data(
-            topojson.feature(data, data.objects.polygons)
-                .features,
-        )
-        .enter()
-        .append('text')
-        .attr('class', 'subunit-label')
-        .attr('transform', function (d) {
-            return 'translate(' + path.centroid(d) + ')';
-        })
-        .attr('dy', '.35em')
-        .attr('text-anchor', 'middle')
-        .style('font-size', '.5em')
-        .style('text-shadow', '0px 0px 2px #fff')
-        .style('text-transform', 'uppercase')
-        .text(function (d) {
-            return d.properties.st_nm;
-        });
-}
-
-function colorSubunits(subunits) {
-    var colorScale = d3.scaleOrdinal(
-        d3.schemeCategory10,
-    ); // You can choose a different color scheme here
-
-    subunits
-        .style('fill', function (d, i) {
-            return colorScale(i);
-        })
-        .style('opacity', '.6');
+function colorStates(subunits) {
+    d3.csv("data/literacy.csv", d => {
+        return {
+            state: d.State,
+            literacy: d.Literacy
+        }
+    }).then((data) => {
+        var colorScale = d3.scaleLinear()
+            .domain([0, 100])
+            .interpolate(d3.interpolateBlues);
+        // console.log(data);
+        var lits = data;
+        subunits
+            .style('fill', colorScale(lits[i]))
+            .style('opacity', '.6');
+    })
 }

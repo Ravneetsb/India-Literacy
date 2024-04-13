@@ -1,0 +1,51 @@
+section.banner {
+    font-family: "Bahnschrift";
+    background: linear-gradient(to right, aqua, aquamarine);
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    animation: gradientAnimation 10s linear infinite;
+    @keyframes gradientAnimation {
+        0% {
+            background-position: 0 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0 50%;
+        }
+    }
+}
+
+section.input {
+    text-align: center;
+}
+
+body {
+    padding-top: 100px;
+    text-align: center;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+p {
+    margin: 100px;
+}
+
+p.back {
+    text-align: left;
+}
+
+canvas.platform {
+    border: 1px solid #d3d3d3;
+    background-color: #f1f1f1;
+    height: 270px;
+    width: 480px;
+}

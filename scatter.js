@@ -9,19 +9,20 @@ d3.csv("data/density.csv", d => {
     return {
         state: d.State,
         literacy: d.Literacy,
-        density:d.SchoolDensity
+        population: +d.Population,
+        schools: +d.TotalSchools
     };
 }).then((data) => {
-    const svg = d3.select("body").append("svg")
+    const svg = d3.select("#scatter").append("svg")
         .attr("height", height)
         .attr("width", width);
 
-    const x = d3.scaleBand()
-        .domain(data.state)
+    const x = d3.scaleLinear()
+        .domain(d3.extent(data, d =>d.population))
         .range([marginLeft, width - marginRight]);
 
     const y = d3.scaleLinear()
-        .domain(d3.extent(data, d => d.literacy))
+        .domain(d3.extent(data, d => d.schools))
         .range([marginBottom, height - marginTop]);
 
     const colorScale = d3.scaleLinear()
@@ -41,14 +42,14 @@ d3.csv("data/density.csv", d => {
     svg.selectAll()
         .data(data)
         .enter().append("circle")
-        .attr("cx", d => x(d))
-        .attr("cy", d => y(d.culmenDep))
+        .attr("cx", d => x(d.population))
+        .attr("cy", d => y(d.schools))
         .attr("r", 5)
-        .attr("fill", d => colorScale(d.species));
+        .attr("fill", d => colorScale(d.literacy));
 
     const legend = d3.legendColor()
         .scale(colorScale)
-        .title("Penguin Species");
+        .title("Literacy Level");
 
     svg.append("g")
         .attr("class", "legend")

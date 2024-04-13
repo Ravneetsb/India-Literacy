@@ -21,7 +21,15 @@ d3.json(
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);
-    colorStates(subunits);
+    d3.csv("data/literacy.csv", d => {
+        return {
+            state: d.State,
+            literacy: d.Literacy
+        }
+    }).then(data => {
+        colorStates(subunits, data);
+    });
+    // colorStates(subunits);
     drawBoundary(data, boundary);
 });
 
@@ -54,7 +62,6 @@ function centerZoom(data) {
 }
 
 function drawBoundary(data, boundary) {
-    d3.json("literacy.csv")
     g.append('path')
         .datum(boundary)
         .attr('d', path)
@@ -81,21 +88,27 @@ function drawStates(data) {
     return subunits;
 }
 
-function colorStates(subunits) {
-    d3.csv("data/literacy.csv", d => {
-        return {
-            state: d.State,
-            literacy: +d.Literacy
-        }
-    }).then((data) => {
-        /*var colorScale = d3.scaleLinear()
-            .domain([0, 100])
-            .interpolate(d3.interpolateBlues);
-        console.log(data);
-        var lits = data;
-        subunits
-            .style('fill', colorScale(lits[i]))
-            .style('opacity', '.6');*/
-        console.log(data);
-    })
+function colorStates(subunits, data) {
+    /*var colorScale = d3.scaleOrdinal(
+        d3.schemeCategory10,
+    );
+
+    subunits
+        .style('fill', function (d, i) {
+            return colorScale(i);
+        })
+        .style('opacity', '.6');*/
+
+    var colorScale = d3.scaleLinear()
+        .domain([0, 100])
+        .range(["white", "blue"]);
+
+    var stateLiteracy = {};
+    data.forEach(d => {
+        stateLiteracy[d.state] = d.literacy;
+    });
+
+    subunits.style("fill", d => {
+        return colorScale(stateLiteracy[d.properties.st_name])
+    }).style("opacity", ".6");
 }

@@ -17,7 +17,7 @@ var svg = d3
 var g = svg.append('g');
 
 d3.json(
-    'https://gist.githubusercontent.com/HarryStevens/c9cf86eba753ba8650fb466e37d538d2/raw/c24913d2d636ecd84a4da73920ba92935f93c612/india.json',
+    'data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);
@@ -88,13 +88,14 @@ function colorStates(subunits) {
             literacy: d.Literacy
         }
     }).then((data) => {
-        var colorScale = d3.scaleLinear()
+        /*var colorScale = d3.scaleLinear()
             .domain([0, 100])
             .interpolate(d3.interpolateBlues);
-        // console.log(data);
+        console.log(data);
         var lits = data;
         subunits
             .style('fill', colorScale(lits[i]))
-            .style('opacity', '.6');
+            .style('opacity', '.6');*/
+        console.log(data);
     })
 }

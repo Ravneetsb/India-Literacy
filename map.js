@@ -85,7 +85,7 @@ function colorStates(subunits) {
     d3.csv("data/literacy.csv", d => {
         return {
             state: d.State,
-            literacy: d.Literacy
+            literacy: +d.Literacy
         }
     }).then((data) => {
         /*var colorScale = d3.scaleLinear()

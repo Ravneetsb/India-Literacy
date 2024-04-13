@@ -78,7 +78,7 @@ function drawStates(data) {
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
         .style("fill", d => {
-            return colorScale(d.properties.literacy)
+            return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
         });
 
     return subunits;

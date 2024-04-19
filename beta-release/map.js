@@ -17,7 +17,7 @@ var svg = d3
 var g = svg.append('g');
 
 d3.json(
-    'data/india.json',
+    '../data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);
@@ -75,23 +75,15 @@ function drawStates(data) {
         .append('path')
         .attr('class', 'subunit')
         .attr('d', path)
+        .attr("data-tippy-content", d => d.properties.literacy)
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
         .style("fill", d => {
             return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
         });
+
+    tippy(".subunit", {
+        placement: "top"
+    });
     return subunits;
-}
-
-function colorStates(subunits, data) {
-    var colorScale = d3.scaleOrdinal(
-        d3.schemeCategory10,
-    );
-
-    subunits
-        .style('fill', function (d, i) {
-            return colorScale(d.properties.literacy);
-        })
-        .style('opacity', '.6');
-
 }

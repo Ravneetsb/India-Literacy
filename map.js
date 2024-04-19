@@ -80,7 +80,6 @@ function drawStates(data) {
         .style("fill", d => {
             return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
         });
-
     return subunits;
 }
 

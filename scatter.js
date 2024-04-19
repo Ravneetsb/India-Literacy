@@ -72,7 +72,7 @@ d3.csv("data/density.csv", d => {
     svg.append("text")
         .attr("class", "xlabel")
         .attr("x", (ScatterWidth) / 2)
-        .attr("y", ScatterHeight-10)
+        .attr("y", ScatterHeight)
         .text("Population")
         .style("font-size", "12px")
         .style("text-anchor", "middle")

@@ -21,7 +21,6 @@ d3.json(
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);
-    // colorStates(subunits);
     drawBoundary(data, boundary);
 });
 
@@ -75,7 +74,9 @@ function drawStates(data) {
         .append('path')
         .attr('class', 'subunit')
         .attr('d', path)
-        .attr("data-tippy-content", d => d.properties.literacy)
+        .attr("data-tippy-content", d => {
+            return `Literacy Level: ${d.properties.literacy} State: ${d.properties.st_nm} `
+        })
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
         .style("fill", d => {
@@ -83,7 +84,8 @@ function drawStates(data) {
         });
 
     tippy(".subunit", {
-        placement: "top"
+        placement: "top",
+        theme: "map"
     });
     return subunits;
 }

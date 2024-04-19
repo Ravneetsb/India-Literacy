@@ -1,6 +1,6 @@
 section.banner {
     font-family: "Bahnschrift";
-    background: linear-gradient(to right, aqua, aquamarine);
+    background: linear-gradient(to right, orange, darkorange);
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -51,7 +51,19 @@ canvas.platform {
 }
 
 #scatter, #map {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
+    height: 500px;
+    width: 500px;
+}
+
+.tippy-box[data-theme~='map'][data-placement^='top'] {
+    background-color: darkblue;
+    color:floralwhite;
+}
+
+.tippy-box[data-theme~='scatter'][data-placement^='top'] {
+    background-color: darkgreen;
+    color:floralwhite;
 }

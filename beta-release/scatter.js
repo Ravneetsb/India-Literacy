@@ -1,8 +1,8 @@
-const factor = 2;
-const ScatterWidth = 1000 / factor;
-const ScatterHeight = 800 / factor;
-const marginTop = 50 / factor;
-const marginBottom = 50 / factor;
+const factor = 1.75;
+const ScatterWidth = 1200 / factor;
+const ScatterHeight = 1000 / factor;
+const marginTop = 150 / factor;
+const marginBottom = 150 / factor;
 const marginRight = 120 / factor;
 const marginLeft = 150 / factor;
 
@@ -12,8 +12,6 @@ var svg = d3.select("#scatter").append("svg")
     .attr("width", ScatterWidth);
 
 var decimalFormat = d3.format(".2f");
-
-
 
 function drawAxis(x, y) {
     svg.append("g")
@@ -30,8 +28,8 @@ function drawAxis(x, y) {
 function drawAxisLabels() {
     svg.append("text")
         .attr("class", "ylabel")
-        .attr("x", -ScatterHeight / 2)
-        .attr("y", marginLeft / 2)
+        .attr("x", (-ScatterHeight / 2))
+        .attr("y", (marginLeft / 2) - 10)
         .text("Number of Schools")
         .attr("transform", "rotate(-90)")
         .style("font-size", "20px")
@@ -41,9 +39,9 @@ function drawAxisLabels() {
     svg.append("text")
         .attr("class", "xlabel")
         .attr("x", (ScatterWidth) / 2)
-        .attr("y", ScatterHeight)
+        .attr("y", ScatterHeight - 20)
         .text("Population")
-        .style("font-size", "12px")
+        .style("font-size", "20px")
         .style("text-anchor", "middle")
         .style("font-family", "Arial");
 }
@@ -79,28 +77,17 @@ d3.csv("../data/density.csv", d => {
         if (!event.selection) return;
 
         const [[x0, y0], [x1, y1]] = event.selection;
-
-        // Filter data based on the brush selection
         const selectedData = data.filter(d => x0 <= x(d.population) && x(d.population) <= x1 && y0 <= y(d.schools) && y(d.schools) <= y1);
-
-        // Update the display or perform any action with the selected data
         console.log(selectedData);
-
-        // You can also update the appearance of the selected points, for example:
         svg.selectAll(".points")
             .attr("fill", d => selectedData.includes(d) ? "red" : colorScale(d.literacy));
     }
-
 
     svg.append("g")
         .attr("class", "brush")
         .call(brush);
 
-
-
-
-
-    svg.selectAll()
+    var points = svg.selectAll()
         .data(data)
         .enter().append("circle")
         .attr("class", "points")
@@ -119,12 +106,7 @@ d3.csv("../data/density.csv", d => {
         trigger: "mouseenter focus",
         role: "tooltip",
         allowHTML: "true"
-    })
-
-    svg.append("g")
-        .attr("class", "brush")
-        .call(brush);
-
+    });
 
     const legend = d3.legendColor()
         .scale(colorScale)
@@ -134,6 +116,4 @@ d3.csv("../data/density.csv", d => {
         .attr("class", "legend")
         .attr("transform", `translate(${ScatterWidth - marginRight - 100}, ${ScatterHeight / 50})`)
         .call(legend);
-
-
 });

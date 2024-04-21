@@ -2,7 +2,7 @@ section.banner {
     font-family: "Bahnschrift";
     background: linear-gradient(to right, orange, darkorange);
     overflow: hidden;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -56,6 +56,24 @@ canvas.platform {
     margin: 20px;
     height: 500px;
     width: 500px;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+#scatter {
+    position: relative;
+    top: 600px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 
 .tippy-box[data-theme~='map'][data-placement^='top'] {

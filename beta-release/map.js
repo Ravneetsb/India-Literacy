@@ -75,7 +75,7 @@ function drawStates(data) {
         .attr('class', 'subunit')
         .attr('d', path)
         .attr("data-tippy-content", d => {
-            return `Literacy Level: ${d.properties.literacy} State: ${d.properties.st_nm} `
+            return `Literacy Level: ${d.properties.literacy} <br> State: ${d.properties.st_nm} `
         })
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
@@ -85,7 +85,10 @@ function drawStates(data) {
 
     tippy(".subunit", {
         placement: "top",
-        theme: "map"
+        theme: "map",
+        trigger: "mouseenter focus",
+        role: "tooltip",
+        allowHTML: "true"
     });
     return subunits;
 }

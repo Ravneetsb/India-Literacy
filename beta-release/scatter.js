@@ -6,46 +6,12 @@ const marginBottom = 50 / factor;
 const marginRight = 120 / factor;
 const marginLeft = 150 / factor;
 
-function updateChart() {
-
-    extent = d3.event.selection
-
-    // If no selection, back to initial coordinate. Otherwise, update X axis domain
-    if(!extent){
-        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-        x.domain([ 4,8])
-    }else{
-        x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
-        scatter.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
-    }
-
-    // Update axis and circle position
-    xAxis.transition().duration(1000).call(d3.axisBottom(x))
-    scatter
-        .selectAll("circle")
-        .transition().duration(1000)
-        .attr("cx", function (d) { return x(d.Sepal_Length); } )
-        .attr("cy", function (d) { return y(d.Petal_Length); } )
-
-}
-
-
-
 
 var svg = d3.select("#scatter").append("svg")
     .attr("height", ScatterHeight)
     .attr("width", ScatterWidth);
 
-const brush = d3.brushX()
-    .extent([0, 0], [ScatterWidth, ScatterHeight])
-    .on("end", updateChart);
-
-svg.attr("clip-path", "url(#clip)");
-
-var idleTimeOut;
-function idled() {
-    idleTimeOut = null;
-}
+var decimalFormat = d3.format(".2f");
 
 
 
@@ -103,7 +69,34 @@ d3.csv("../data/density.csv", d => {
 
     const colorScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.literacy))
-        .range(['#edf8fb','#238b45'])
+        .range(['#edf8fb','#238b45']);
+
+    const brush = d3.brush()
+        .extent([[marginLeft, marginBottom], [ScatterWidth - marginRight, ScatterHeight - marginTop]])
+        .on("start brush", brushed);
+
+    function brushed(event) {
+        if (!event.selection) return;
+
+        const [[x0, y0], [x1, y1]] = event.selection;
+
+        // Filter data based on the brush selection
+        const selectedData = data.filter(d => x0 <= x(d.population) && x(d.population) <= x1 && y0 <= y(d.schools) && y(d.schools) <= y1);
+
+        // Update the display or perform any action with the selected data
+        console.log(selectedData);
+
+        // You can also update the appearance of the selected points, for example:
+        svg.selectAll(".points")
+            .attr("fill", d => selectedData.includes(d) ? "red" : colorScale(d.literacy));
+    }
+
+
+    svg.append("g")
+        .attr("class", "brush")
+        .call(brush);
+
+
 
 
 
@@ -115,14 +108,17 @@ d3.csv("../data/density.csv", d => {
         .attr("cy", d => y(d.schools))
         .attr("r", 5)
         .attr("data-tippy-content", d => {
-            return d.schools / d.population;
+            return `School Density: ${decimalFormat(d.schools / d.population)}<br>State: ${d.state}`;
         })
         .attr("fill", d => colorScale(d.literacy))
         .style("stroke", "black");
 
     tippy(".points", {
         theme: "scatter",
-        placement: "top"
+        placement: "top",
+        trigger: "mouseenter focus",
+        role: "tooltip",
+        allowHTML: "true"
     })
 
     svg.append("g")

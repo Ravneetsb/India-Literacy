@@ -17,7 +17,7 @@ var svg = d3
 var g = svg.append('g');
 
 d3.json(
-    '../data/india.json',
+    '../assets/data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Beta Release</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="beta-release/beta-style.css"/>
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="logo">Releases</a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="alpha.html">Alpha</a></li>
+            <li class="active"><a href="beta.html">Beta</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Post -->
+        <section class="post">
+            <header class="major">
+                <span class="date">April 24, 2024</span>
+                <h1>An Exploration of Literacy in India</h1>
+                <p>A look into various factors that might affect literacy rates.</p>
+                <p>India is a diverse country, with various religions, languages <br />
+                cuisines, etc.<br/>
+                This diversity is also reflected in the literacy rates amongst the Indian States.</p>
+            </header>
+            <div id="map"></div>
+            <p>Literacy varies by a lot. Kerala has a literacy rate of 93.91, while Bihar only has a literacy rate of 63.82</p>
+            <p>This is a big difference. What could be possible reasons for this?</p>
+            <p>At the time this data was collected (2015), India was the second most populated country in the world.
+                It would be reasonable to assume that there just aren't enough schools in some states, while other states
+                have decent infrastructure for the same.</p>
+            <p>By dividing the number of schools in a state by the population, we can get what I call <i>School Density</i>.
+                We can plot the school densities for different states using a scatter plot.</p>
+            <div id="scatterBox">
+                <div id="scatter"></div>
+            </div>
+            <p>We see that there is no clear correlation between states with higher school density and higher literacy rates.
+                This is indicative of the fact that <em>It is not enough to just make schools.</em></p>
+            <p>Telangana has an unusually high school density. The reason for this is that Telangana was officially declared
+                as a state only in June 2014. Since the data is for 2015, it stands to reason that people hadn't yet transferred
+                their domicile certificate to the state of Telangana. A domicile certificate is used to show that one is a permanent
+                resident of a state.</p>
+            <p>Now that we know what school density is, we can use a bubble plot to see a clearer relationship
+                between school density and literacy.</p>
+            <div id="bubble"></div>
+            <p>The packed bubble chart above gives us a clearer way to compare the school densities with literacy levels.
+            We see that there is no clear clustering on the basis of both size and color. Therefore, we can say that it is
+            <em>inconclusive</em> as to whether or not school density has an effect on literacy.</p>
+            <p> How about Accessibility? It has been a big discussion in India, on how we can improve access to schools for all
+            people through all season roads. The bubble map below plots the accessibility to schools per state based on
+            how many schools are connected to all season roads.</p>
+            <div id="areaBubble"></div>
+            <p>The bubble plot shows us that the states with the highest literacy generally have a higher number of schools
+            accessible by all weather roads. In fact, most states with a higher literacy rate also seem to have a smaller
+            population compared to the other states.</p>
+            <p>States with a larger population tend to have a lesser literacy rate. Further, Jharkhand seems to be the single
+            biggest culprit in terms of inaccessibility to schools. While Jharkhand is not the state with the highest number
+            of inaccessible schools, it is the state with the biggest percentage of inaccessible schools.</p>
+            <div id="bar"></div>
+            <p>Most states do not have a equal distribution of students from either Scheduled Castes
+            or Scheduled Tribes. The only states that have a similar number of students from
+            both categories are Madhya Pradesh and Maharashtra, both of which have varying literacy rates.</p>
+            <p></p>
+        </section>
+
+    </div>
+
+    <!-- Copyright -->
+    <div id="copyright">
+        <ul><li>&copy; Ravneet Singh Bhatia</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+    </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha512-iBAeBWWWFb8HqSBcrqcz98iIpuVH1la39dEYHtyQ/pGpeCQTQVvLJOWAuhv2Q7JSHp9k7hWA7sGxU3hHJe+tFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="beta-release/map.js"></script>
+<script src="beta-release/scatter.js"></script>
+<script src="beta-release/Packedbubble.js"></script>
+<script src="beta-release/bubble.js"></script>
+<script src="beta-release/diverging.js"></script>
+
+</body>
+</html>

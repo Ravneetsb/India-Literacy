@@ -8,20 +8,59 @@ var path = d3
     .projection(projection)
     .pointRadius(2);
 
-var svg = d3
+var mapSVG = d3
     .select('#map')
     .append('svg')
     .attr('width', width)
     .attr('height', height);
 
-var g = svg.append('g');
+var g = mapSVG.append('g');
 
 d3.json(
-    '../data/india.json',
+    '../assets/data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);
     drawBoundary(data, boundary);
+    const annotations =[
+        {
+
+            note: {
+                label: "Kerala has the highest literacy rate.",
+                wrap: 150,
+                align: "left"
+            },
+            connector: {
+                end: "arrow"
+            },
+            x: 150,
+            y: 450,
+            dy: -10,
+            dx: -150
+        },
+        {
+            note: {
+                label: "Bihar as the lowest literacy rate.",
+                wrap: 150,
+                align: "left"
+            },
+            connector: {
+                end: "arrow"
+            },
+            x: 300,
+            y: 200,
+            dy: -70,
+            dx: 50
+        }
+    ].map(function(d){ d.color = "#E8336D"; return d})
+
+    const makeAnnotations = d3.annotation()
+        .type(d3.annotationLabel)
+        .annotations(annotations)
+
+    mapSVG.append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations)
 });
 
 function centerZoom(data) {
@@ -65,25 +104,42 @@ function drawBoundary(data, boundary) {
 function drawStates(data) {
     var colorScale = d3.scaleSequential(d3.interpolateBlues).domain([60, 100]);
     var subunits = g
-        .selectAll('.subunit')
+        .selectAll('.map')
         .data(
             topojson.feature(data, data.objects.polygons)
                 .features,
         )
         .enter()
         .append('path')
-        .attr('class', 'subunit')
+        .attr('class', d => `${d.properties.st_nm} map`)
+        // .attr("id",d =>  `${d.properties.st_nm} map`)
         .attr('d', path)
         .attr("data-tippy-content", d => {
+            if (d.properties.literacy > 0) {
             return `Literacy Level: ${d.properties.literacy} <br> State: ${d.properties.st_nm} `
+            } else {
+                return "NO DATA";
+            }
         })
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
         .style("fill", d => {
             return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
+        }).on("click", function(event, d) {
+            let circle = d3.select(`.${d.properties.st_nm} points`);
+            circle.attr("fill", "red");
+            console.log(circle);
+            let circlePosition = circle.position;
+
+            let scrollPosition = window.pageYOffset + circlePosition ;
+
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: "smooth"
+            });
         });
 
-    tippy(".subunit", {
+    tippy(".map", {
         placement: "top",
         theme: "map",
         trigger: "mouseenter focus",

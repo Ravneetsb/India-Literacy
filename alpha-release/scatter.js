@@ -6,7 +6,7 @@ const marginBottom = 50 / factor;
 const marginRight = 120 / factor;
 const marginLeft = 150 / factor;
 
-d3.csv("../data/density.csv", d => {
+d3.csv("../assets/data/density.csv", d => {
     return {
         state: d.State,
         literacy: +d.Literacy,

@@ -17,7 +17,7 @@ var mapSVG = d3
 var g = mapSVG.append('g');
 
 d3.json(
-    '../assets/data/india.json',
+    'https://github.com/Ravneetsb/India-Literacy/tree/main/assets/data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
     var subunits = drawStates(data);

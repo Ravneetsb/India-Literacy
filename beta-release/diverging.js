@@ -74,7 +74,7 @@ const barSvg = d3.select("#bar").append("svg")
     .attr("height", barDim.height)
     .attr("width", barDim.width);
 
-d3.csv("../assets/data/pop.csv", d => {
+d3.csv("assets/data/pop.csv", d => {
     return {
         state: d.State,
         literacy: +d.Literacy,

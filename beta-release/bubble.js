@@ -1,4 +1,4 @@
-d3.csv("../assets/data/roads.csv", d => {
+d3.csv("assets/data/roads.csv", d => {
     return {
         state: d.State,
         roads: +d.Roads,

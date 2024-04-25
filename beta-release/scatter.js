@@ -47,7 +47,7 @@ function drawAxisLabels() {
         .style("font-family", "Arial");
 }
 
-d3.csv("../assets/data/density.csv", d => {
+d3.csv("assets/data/density.csv", d => {
     return {
         state: d.State,
         literacy: +d.Literacy,

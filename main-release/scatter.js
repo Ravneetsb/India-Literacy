@@ -4,7 +4,7 @@ const ScatterHeight = 1000 / factor;
 const marginTop = 150 / factor;
 const marginBottom = 150 / factor;
 const marginRight = 120 / factor;
-const marginLeft = 150 / factor;
+const marginLeft = 200 / factor;
 
 
 var svg = d3.select("#scatter").append("svg")
@@ -17,11 +17,13 @@ var decimalFormat = d3.format(".2f");
 function drawAxis(x, y) {
     svg.append("g")
         .attr("class", "xAxis")
+        .style("font-size", 14)
         .attr("transform", `translate(0,${ScatterHeight - marginBottom})`)
         .call(d3.axisBottom(x));
 
     svg.append("g")
         .attr("class", "yAxis")
+        .style("font-size", 14)
         .attr("transform", `translate(${marginLeft}, 0)`)
         .call(d3.axisLeft(y));
 }
@@ -30,7 +32,7 @@ function drawAxisLabels() {
     svg.append("text")
         .attr("class", "ylabel")
         .attr("x", (-ScatterHeight / 2))
-        .attr("y", (marginLeft / 2) - 10)
+        .attr("y", (marginLeft / 2) - 20)
         .text("Number of Schools")
         .attr("transform", "rotate(-90)")
         .style("font-size", "20px")
@@ -40,7 +42,7 @@ function drawAxisLabels() {
     svg.append("text")
         .attr("class", "xlabel")
         .attr("x", (ScatterWidth) / 2)
-        .attr("y", ScatterHeight - 20)
+        .attr("y", ScatterHeight - 10)
         .text("Population (1000s)")
         .style("font-size", "20px")
         .style("text-anchor", "middle")
@@ -59,6 +61,8 @@ d3.csv("assets/data/density.csv", d => {
     const x = d3.scaleLog()
         .domain(d3.extent(data.filter(d => d.schools > 0 && d.population > 0), d =>d.schools))
         .range([marginLeft, ScatterWidth - marginRight]);
+
+    // let xTicks = x.ticks(5);
 
     const y = d3.scaleLinear()
         .domain(d3.extent(data, d => d.population))
@@ -88,8 +92,8 @@ d3.csv("assets/data/density.csv", d => {
         .style("stroke", "black")
         .style("stroke-width", 0.5)
         .on("click", function(event, d) {
-            console.log(d.state);
             const selection = d3.select(this);
+            console.log(selection.attr("class"));
             const currRadius = selection.attr("r");
             const content = `
                 State: ${d.state} <br>
@@ -109,10 +113,6 @@ d3.csv("assets/data/density.csv", d => {
                 if (d3.select("#clicked")) {
                     d3.select("#clicked").remove();
                 }
-                /*d3.select("#scatterBox").append("div")
-                    .attr("id", "clicked")
-                    .attr("transform", "translate(500, 0)")
-                    .html(content);*/
 
                 d3.select("#scatterBox")
                     .append("div")
@@ -168,8 +168,8 @@ d3.csv("assets/data/density.csv", d => {
             connector: {
                 end: "arrow"
             },
-            x: 185,
-            y: 350,
+            x: 210,
+            y: 340,
             dy: -100,
             dx: -15
         }

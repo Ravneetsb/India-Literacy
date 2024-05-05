@@ -1,31 +1,3 @@
-section.banner {
-    font-family: "Bahnschrift";
-    background: linear-gradient(to right, orange, darkorange);
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    text-align: center;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    animation: gradientAnimation 10s linear infinite;
-    @keyframes gradientAnimation {
-        0% {
-            background-position: 0 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0 50%;
-        }
-    }
-}
-
-section.input {
-    text-align: center;
-}
-
 body {
     padding-top: 100px;
 }

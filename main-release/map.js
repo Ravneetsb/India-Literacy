@@ -20,7 +20,7 @@ d3.json(
     'assets/data/india.json',
 ).then(function (data) {
     var boundary = centerZoom(data);
-    var subunits = drawStates(data);
+    drawStates(data);
     drawBoundary(data, boundary);
     const annotations =[
         {
@@ -112,7 +112,6 @@ function drawStates(data) {
         .enter()
         .append('path')
         .attr('class', d => `${d.properties.st_nm} map`)
-        // .attr("id",d =>  `${d.properties.st_nm} map`)
         .attr('d', path)
         .attr("data-tippy-content", d => {
             if (d.properties.literacy > 0) {
@@ -126,17 +125,12 @@ function drawStates(data) {
         .style("fill", d => {
             return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
         }).on("click", function(event, d) {
-            let circle = d3.select(`.${d.properties.st_nm} points`);
-            circle.attr("fill", "red");
+            // let mapClass = d3.select(this).attr("class");
+            let state = d.properties.st_nm;
+            let circleClass = `${state} points`;
+            console.log(circleClass);
+            let circle = d3.select("#scatter");
             console.log(circle);
-            let circlePosition = circle.position;
-
-            let scrollPosition = window.pageYOffset + circlePosition ;
-
-            window.scrollTo({
-                top: scrollPosition,
-                behavior: "smooth"
-            });
         });
 
     tippy(".map", {

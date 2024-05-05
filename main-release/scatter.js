@@ -8,7 +8,7 @@ const marginLeft = 200 / factor;
 
 
 var svg = d3.select("#scatter").append("svg")
-    .attr("height", ScatterHeight+100)
+    .attr("height", ScatterHeight)
     .attr("width", ScatterWidth+100);
 
 var decimalFormat = d3.format(".2f");

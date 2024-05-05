@@ -52,7 +52,6 @@ canvas.platform {
     font-family: "Roboto";
 }
 
-
 .tippy-box[data-theme~='map'][data-placement^='top'] {
     background-color: darkblue;
     color:floralwhite;

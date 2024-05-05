@@ -24,7 +24,7 @@ d3.csv("assets/data/roads.csv", d => {
         .range(['#edf8fb','#238b45']);
 
    let svg = d3.select("#areaBubble").append("svg")
-       .attr("height", height+100)
+       .attr("height", height)
        .attr("width", width+100);
 
    svg.append("g")
@@ -48,7 +48,7 @@ d3.csv("assets/data/roads.csv", d => {
        .attr("stroke", "black")
        .attr("stroke-width", 0.3)
        .attr("data-tippy-content", d => {
-           return `${d.state} <br> Inaccessible schools: ${d.schools - d.roads} <br> Literacy: ${d.literacy}`
+           return `${d.state} <br> Inaccessible schools: ${commaFormat(d.schools - d.roads)} <br> Literacy: ${d.literacy}`
        });
 
    tippy(".bubble", {

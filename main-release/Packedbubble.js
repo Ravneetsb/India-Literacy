@@ -1,3 +1,4 @@
+// let commaFormat = d3.format(",");
 render();
 
 function render() {
@@ -78,7 +79,7 @@ function render() {
         .enter()
         .append('g').attr('class', 'node')
         .attr("data-tippy-content", d => {
-            return `State:${d.data.name}<br>Literacy: ${d.data.literacy}<br>School Density: ${d.data.density}`;
+            return `State:${d.data.name}<br>Literacy: ${d.data.literacy}<br>School Density: ${d.data.density/100}`;
         })
         .attr('transform', function(d) { return 'translate(' + d.x + ' ' + d.y + ')'; })
         .append('g').attr('class', 'graph');

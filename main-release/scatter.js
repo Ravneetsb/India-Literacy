@@ -170,7 +170,6 @@ d3.csv("assets/data/density.csv", d => {
 
     const annotations =[
         {
-
             note: {
                 label: "Telangana is an outlier. It only became a separate state a few months ago.",
                 wrap: 150,

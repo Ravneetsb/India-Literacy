@@ -37,6 +37,10 @@ canvas.platform {
 }
 
 #clicked {
+    position: absolute;
+    left: 900px;
+    top: 2000px;
+    visibility: hidden;
     max-width: 200px;
     background-color: darkgreen;
     opacity: 0.6;

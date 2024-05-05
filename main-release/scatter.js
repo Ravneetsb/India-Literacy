@@ -12,6 +12,7 @@ var svg = d3.select("#scatter").append("svg")
     .attr("width", ScatterWidth);
 
 var decimalFormat = d3.format(".2f");
+const commaFormat = d3.format(",");
 
 
 function drawAxis(x, y) {
@@ -29,6 +30,12 @@ function drawAxis(x, y) {
 }
 
 function drawAxisLabels() {
+    svg.append("text")
+        .attr("class", "title")
+        .attr("x", ScatterWidth / 2)
+        .attr("y", marginTop)
+        .html("<b>Building Schools is Not Enough</b>")
+
     svg.append("text")
         .attr("class", "ylabel")
         .attr("x", (-ScatterHeight / 2))
@@ -61,8 +68,6 @@ d3.csv("assets/data/density.csv", d => {
     const x = d3.scaleLog()
         .domain(d3.extent(data.filter(d => d.schools > 0 && d.population > 0), d =>d.schools))
         .range([marginLeft, ScatterWidth - marginRight]);
-
-    // let xTicks = x.ticks(5);
 
     const y = d3.scaleLinear()
         .domain(d3.extent(data, d => d.population))
@@ -97,8 +102,8 @@ d3.csv("assets/data/density.csv", d => {
             const currRadius = selection.attr("r");
             const content = `
                 State: ${d.state} <br>
-                Schools: ${d.schools} &nbsp;
-                Population: ${d.population.toFixed(2)} <br>
+                Schools: ${commaFormat(d.schools)} &nbsp;
+                Population: ${commaFormat(d.population)} <br>
                 Literacy: ${d.literacy.toFixed(2)}
             `;
 
@@ -111,22 +116,16 @@ d3.csv("assets/data/density.csv", d => {
                     .attr("r", 10)
                     .attr("fill", "yellow");
                 if (d3.select("#clicked")) {
-                    d3.select("#clicked").remove();
+                    d3.select("#clicked").style("visibility", "hidden");
                 }
-
-                d3.select("#scatterBox")
-                    .append("div")
-                    .attr("id", "clicked")
-                    .style("position", "relative")
-                    .style("left", "650px")
-                    .style("top", "-500px")
-                    .html(content);
+                d3.select("#clicked").style("visibility", "visible");
+                d3.select("#clicked").html(content);
             } else {
                 selection.transition()
                     .duration(200)
                     .attr("r", 5)
                     .attr("fill", d => colorScale(d.literacy));
-                d3.select("#clicked").remove();
+                d3.select("#clicked").style("visibility", "hidden");
             }
         }).on("mouseover", function(event, d) {
             const selection = d3.select(this);

@@ -8,8 +8,8 @@ const marginLeft = 200 / factor;
 
 
 var svg = d3.select("#scatter").append("svg")
-    .attr("height", ScatterHeight)
-    .attr("width", ScatterWidth);
+    .attr("height", ScatterHeight+100)
+    .attr("width", ScatterWidth+100);
 
 var decimalFormat = d3.format(".2f");
 const commaFormat = d3.format(",");
@@ -30,11 +30,23 @@ function drawAxis(x, y) {
 }
 
 function drawAxisLabels() {
+/*    svg.append("text")
+        .attr("class", "title")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("transform",`translate(${110}, ${marginTop - 20})`)
+        .text("School density has NO clear relationship with literacy rate.")
+        .style("font-family", "Helvetica")
+        .style("font-size", "20px")*/
     svg.append("text")
         .attr("class", "title")
-        .attr("x", ScatterWidth / 2)
-        .attr("y", marginTop)
-        .html("<b>Building Schools is Not Enough</b>")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("transform",`translate(${110}, ${marginTop - 20})`)
+        .style("font-family", "Helvetica")
+        .style("font-size", "20px")
+        .html("School density has <tspan style='font-style:oblique;'>NO</tspan style='font-style:oblique;'> clear relationship with literacy rate.");
+
 
     svg.append("text")
         .attr("class", "ylabel")
@@ -153,7 +165,7 @@ d3.csv("assets/data/density.csv", d => {
 
     svg.append("g")
         .attr("class", "legend")
-        .attr("transform", `translate(${ScatterWidth - marginRight - 10}, ${80})`)
+        .attr("transform", `translate(${ScatterWidth}, ${80})`)
         .call(legend);
 
     const annotations =[

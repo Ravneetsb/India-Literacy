@@ -112,6 +112,7 @@ d3.csv("assets/data/roads.csv", d => {
 
     svg.append("g")
         .attr("class", "annotation-group")
-        .call(makeAnnotations)
+        .style("font-family", "Roboto")
+        .call(makeAnnotations);
 
 });

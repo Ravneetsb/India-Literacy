@@ -60,7 +60,8 @@ d3.json(
 
     mapSVG.append("g")
         .attr("class", "annotation-group")
-        .call(makeAnnotations)
+        .style("font-family", "Roboto")
+        .call(makeAnnotations);
 });
 
 function centerZoom(data) {

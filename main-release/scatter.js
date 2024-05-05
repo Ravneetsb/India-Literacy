@@ -183,14 +183,29 @@ d3.csv("assets/data/density.csv", d => {
             y: 340,
             dy: -100,
             dx: -15
+        },
+        {
+            note: {
+                label: "Click Me!",
+                wrap: 150,
+                align: "center"
+            },
+            connector: {
+                end: "arrow"
+            },
+            x:505,
+            y:280,
+            dy: -5,
+            dx: 50
         }
     ].map(function(d){ d.color = "#E8336D"; return d})
 
     const makeAnnotations = d3.annotation()
         .type(d3.annotationLabel)
-        .annotations(annotations)
+        .annotations(annotations);
 
     svg.append("g")
         .attr("class", "annotation-group")
-        .call(makeAnnotations)
+        .style("font-family", "Roboto")
+        .call(makeAnnotations);
 });

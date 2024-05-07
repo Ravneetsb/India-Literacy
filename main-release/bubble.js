@@ -25,7 +25,7 @@ d3.csv("assets/data/roads.csv", d => {
 
    let svg = d3.select("#areaBubble").append("svg")
        .attr("height", height)
-       .attr("width", width+100);
+       .attr("width", width+200);
 
    svg.append("g")
        .attr("class", "areaX")
@@ -85,7 +85,8 @@ d3.csv("assets/data/roads.csv", d => {
    svg.append("g")
         .attr("class", "legend")
         // .attr("transform", `translate(${ScatterWidth - marginRight - 10}, ${80})`)
-        .attr("transform", `translate(${420}, ${80})`)
+        .attr("transform", `translate(${600}, ${80})`)
+       .style("font-size", "14px")
         .call(legend);
 
     const annotations =[

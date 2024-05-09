@@ -12,7 +12,7 @@ const barMargin = {
 
 const barSvg = d3.select("#bar").append("svg")
     .attr("height", barDim.height)
-    .attr("width", barDim.width+500);
+    .attr("width", barDim.width + 500);
 
 const numFormat = d3.format(".2s");
 

@@ -22,7 +22,7 @@ d3.json(
     var boundary = centerZoom(data);
     drawStates(data);
     drawBoundary(data, boundary);
-    const annotations =[
+    const annotations = [
         {
 
             note: {
@@ -52,7 +52,10 @@ d3.json(
             dy: -70,
             dx: 50
         }
-    ].map(function(d){ d.color = "#E8336D"; return d})
+    ].map(function (d) {
+        d.color = "#E8336D";
+        return d
+    })
 
     const makeAnnotations = d3.annotation()
         .type(d3.annotationLabel)
@@ -116,7 +119,7 @@ function drawStates(data) {
         .attr('d', path)
         .attr("data-tippy-content", d => {
             if (d.properties.literacy > 0) {
-            return `Literacy Level: ${d.properties.literacy} <br> State: ${d.properties.st_nm} `
+                return `Literacy Level: ${d.properties.literacy} <br> State: ${d.properties.st_nm} `
             } else {
                 return "NO DATA";
             }
@@ -124,8 +127,8 @@ function drawStates(data) {
         .style('stroke', '#fff')
         .style('stroke-width', '1px')
         .style("fill", d => {
-            return d.properties.literacy !== 0? colorScale(d.properties.literacy):"black";
-        }).on("click", function(event, d) {
+            return d.properties.literacy !== 0 ? colorScale(d.properties.literacy) : "black";
+        }).on("click", function (event, d) {
             // let mapClass = d3.select(this).attr("class");
             let state = d.properties.st_nm;
             let circleClass = `${state} points`;

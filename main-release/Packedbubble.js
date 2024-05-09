@@ -5,7 +5,7 @@ function render() {
     const bgColor = "black"
     const colorScale = d3.scaleLinear()
         .domain([65, 95])
-        .range(['#edf8fb','#238b45']);
+        .range(['#edf8fb', '#238b45']);
     document.querySelector('#bubble').innerHTML = '';
 
     var json = {
@@ -64,13 +64,15 @@ function render() {
     }
 
     var svg = d3.select('#bubble').append('svg')
-        .attr('viewBox','0 0 ' + (diameter + margin.right) + ' ' + diameter)
+        .attr('viewBox', '0 0 ' + (diameter + margin.right) + ' ' + diameter)
         .attr('width', (diameter + margin.right))
         .attr('height', diameter)
         .attr('class', 'chart-svg');
 
     var root = d3.hierarchy(json)
-        .sum(function(d) { return d.density; });
+        .sum(function (d) {
+            return d.density;
+        });
 
     bubble(root);
 
@@ -79,13 +81,17 @@ function render() {
         .enter()
         .append('g').attr('class', 'node')
         .attr("data-tippy-content", d => {
-            return `State:${d.data.name}<br>Literacy: ${d.data.literacy}<br>School Density: ${d.data.density/100}`;
+            return `State:${d.data.name}<br>Literacy: ${d.data.literacy}<br>School Density: ${d.data.density / 100}`;
         })
-        .attr('transform', function(d) { return 'translate(' + d.x + ' ' + d.y + ')'; })
+        .attr('transform', function (d) {
+            return 'translate(' + d.x + ' ' + d.y + ')';
+        })
         .append('g').attr('class', 'graph');
 
     node.append("circle")
-        .attr("r", function(d) { return d.r; })
+        .attr("r", function (d) {
+            return d.r;
+        })
         .style("fill", getItemColor)
         .style("stroke-width", 0.5)
         .append("title");
@@ -137,9 +143,11 @@ function render() {
         }
         return truncate(item.data.name);
     }
+
     function getValueText(item) {
         return item.data.density / 100;
     }
+
     function truncate(label) {
         const max = 11;
         if (label.length > max) {
@@ -147,9 +155,11 @@ function render() {
         }
         return label;
     }
+
     function getFontSizeForItem(item) {
         return getFontSize(item.data.density, min, max, total);
     }
+
     function getFontSize(value, min, max, total) {
         const minPx = 6;
         const maxPx = 25;

@@ -9,7 +9,7 @@ const marginLeft = 200 / factor;
 
 var svg = d3.select("#scatter").append("svg")
     .attr("height", ScatterHeight)
-    .attr("width", ScatterWidth+100);
+    .attr("width", ScatterWidth + 100);
 
 var decimalFormat = d3.format(".2f");
 const commaFormat = d3.format(",");
@@ -30,19 +30,19 @@ function drawAxis(x, y) {
 }
 
 function drawAxisLabels() {
-/*    svg.append("text")
-        .attr("class", "title")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("transform",`translate(${110}, ${marginTop - 20})`)
-        .text("School density has NO clear relationship with literacy rate.")
-        .style("font-family", "Helvetica")
-        .style("font-size", "20px")*/
+    /*    svg.append("text")
+            .attr("class", "title")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("transform",`translate(${110}, ${marginTop - 20})`)
+            .text("School density has NO clear relationship with literacy rate.")
+            .style("font-family", "Helvetica")
+            .style("font-size", "20px")*/
     svg.append("text")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", 0)
-        .attr("transform",`translate(${110}, ${marginTop - 20})`)
+        .attr("transform", `translate(${110}, ${marginTop - 20})`)
         .style("font-family", "Helvetica")
         .style("font-size", "20px")
         .html("School density has <tspan style='font-style:oblique;'>NO</tspan style='font-style:oblique;'> clear relationship with literacy rate.");
@@ -78,7 +78,7 @@ d3.csv("assets/data/density.csv", d => {
     };
 }).then((data) => {
     const x = d3.scaleLog()
-        .domain(d3.extent(data.filter(d => d.schools > 0 && d.population > 0), d =>d.schools))
+        .domain(d3.extent(data.filter(d => d.schools > 0 && d.population > 0), d => d.schools))
         .range([marginLeft, ScatterWidth - marginRight]);
 
     const y = d3.scaleLinear()
@@ -90,8 +90,7 @@ d3.csv("assets/data/density.csv", d => {
 
     const colorScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.literacy))
-        .range(['#edf8fb','#238b45']);
-
+        .range(['#edf8fb', '#238b45']);
 
 
     svg.selectAll()
@@ -108,7 +107,7 @@ d3.csv("assets/data/density.csv", d => {
         .attr("fill", d => colorScale(d.literacy))
         .style("stroke", "black")
         .style("stroke-width", 0.5)
-        .on("click", function(event, d) {
+        .on("click", function (event, d) {
             const selection = d3.select(this);
             console.log(selection.attr("class"));
             const currRadius = selection.attr("r");
@@ -139,12 +138,12 @@ d3.csv("assets/data/density.csv", d => {
                     .attr("fill", d => colorScale(d.literacy));
                 d3.select("#clicked").style("visibility", "hidden");
             }
-        }).on("mouseover", function(event, d) {
-            const selection = d3.select(this);
-            if (selection.attr("r") === "5") {
-                selection.attr("fill", "orange");
-            }
-    }).on("mouseout", function(event, d) {
+        }).on("mouseover", function (event, d) {
+        const selection = d3.select(this);
+        if (selection.attr("r") === "5") {
+            selection.attr("fill", "orange");
+        }
+    }).on("mouseout", function (event, d) {
         const selection = d3.select(this);
         if (selection.attr("r") === "5") {
             selection.attr("fill", d => colorScale(d.literacy));
@@ -168,7 +167,7 @@ d3.csv("assets/data/density.csv", d => {
         .attr("transform", `translate(${ScatterWidth}, ${80})`)
         .call(legend);
 
-    const annotations =[
+    const annotations = [
         {
             note: {
                 label: "Telangana is an outlier. It only became a separate state a few months ago.",
@@ -192,12 +191,15 @@ d3.csv("assets/data/density.csv", d => {
             connector: {
                 end: "arrow"
             },
-            x:505,
-            y:280,
+            x: 505,
+            y: 280,
             dy: -5,
             dx: 50
         }
-    ].map(function(d){ d.color = "#E8336D"; return d})
+    ].map(function (d) {
+        d.color = "#E8336D";
+        return d
+    })
 
     const makeAnnotations = d3.annotation()
         .type(d3.annotationLabel)

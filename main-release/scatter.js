@@ -30,24 +30,6 @@ function drawAxis(x, y) {
 }
 
 function drawAxisLabels() {
-    /*    svg.append("text")
-            .attr("class", "title")
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("transform",`translate(${110}, ${marginTop - 20})`)
-            .text("School density has NO clear relationship with literacy rate.")
-            .style("font-family", "Helvetica")
-            .style("font-size", "20px")*/
-    svg.append("text")
-        .attr("class", "title")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("transform", `translate(${110}, ${marginTop - 20})`)
-        .style("font-family", "Helvetica")
-        .style("font-size", "20px")
-        .html("School density has <tspan style='font-style:oblique;'>NO</tspan style='font-style:oblique;'> clear relationship with literacy rate.");
-
-
     svg.append("text")
         .attr("class", "ylabel")
         .attr("x", (-ScatterHeight / 2))

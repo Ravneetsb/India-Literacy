@@ -34,6 +34,7 @@ d3.csv("assets/data/roads.csv", d => {
         .attr("transform", `translate(${marginLeft}, 0)`)
         .call(d3.axisLeft(yAxis).ticks(6));
 
+    // Add the bubbles.
     svg.selectAll()
         .data(data)
         .enter().append("circle")
@@ -48,10 +49,12 @@ d3.csv("assets/data/roads.csv", d => {
             return `${d.state} <br> Inaccessible schools: ${commaFormat(d.schools - d.roads)} <br> Literacy: ${d.literacy}`
         });
 
+    // Creating tooltips.
     tippy(".bubble", {
         theme: "scatter", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
+    // Create the axis labels.
     svg.append("text")
         .attr("class", "ylabel")
         .attr("x", (-ScatterHeight / 2))
@@ -71,17 +74,18 @@ d3.csv("assets/data/roads.csv", d => {
         .style("text-anchor", "middle")
         .style("font-family", "Arial");
 
+    // Define the legend
     const legend = d3.legendColor()
         .scale(colorScale)
         .title("Literacy");
 
     svg.append("g")
         .attr("class", "legend")
-        // .attr("transform", `translate(${ScatterWidth - marginRight - 10}, ${80})`)
         .attr("transform", `translate(${600}, ${80})`)
         .style("font-size", "14px")
         .call(legend);
 
+    // Defining annotations.
     const annotations = [{
 
         note: {

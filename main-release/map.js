@@ -19,6 +19,7 @@ d3.json('assets/data/india.json',).then(function (data) {
     var boundary = centerZoom(data);
     drawStates(data);
     drawBoundary(data, boundary);
+    // Define annotations.
     const annotations = [{
 
         note: {
@@ -47,6 +48,11 @@ d3.json('assets/data/india.json',).then(function (data) {
         .call(makeAnnotations);
 });
 
+/**
+ * changes the projection so that India is in scale, instead of being tiny.
+ * @param data the data for the projection.
+ * @returns {*} true if successful
+ */
 function centerZoom(data) {
     var o = topojson.mesh(data, data.objects.polygons, function (a, b) {
         return a === b;
@@ -62,6 +68,11 @@ function centerZoom(data) {
     return o;
 }
 
+/**
+ * draws the boundary on the map.
+ * @param data the data for the map
+ * @param boundary the boundaries defined.
+ */
 function drawBoundary(data, boundary) {
     g.append('path')
         .datum(boundary)
@@ -71,7 +82,11 @@ function drawBoundary(data, boundary) {
         .attr('stroke', '#3a403d');
 }
 
-
+/**
+ * Draws the states of India
+ * @param data the data for the map.
+ * @returns {*|void}
+ */
 function drawStates(data) {
     var colorScale = d3.scaleSequential(d3.interpolateBlues).domain([60, 100]);
     var subunits = g

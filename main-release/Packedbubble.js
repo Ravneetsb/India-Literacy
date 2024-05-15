@@ -1,6 +1,9 @@
 // let commaFormat = d3.format(",");
 render();
 
+/**
+  * Creates the choropleth map of India.
+ */
 function render() {
     const bgColor = "black"
     const colorScale = d3.scaleLinear()
@@ -8,6 +11,7 @@ function render() {
         .range(['#edf8fb', '#238b45']);
     document.querySelector('#bubble').innerHTML = '';
 
+    // Data for the bubbles. Added data to the code since running it through a file was being problematic.
     var json = {
         'children': [{name: 'Lakshadweep', density: 64, literacy: 92.28}, {
             name: 'Andaman & Nicobar Island',
@@ -118,11 +122,13 @@ function render() {
         .style("stroke-width", 0.5)
         .append("title");
 
+    // Create the tooltips.
     tippy(".node", {
         theme: "bubble", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
 
+    // Create the bubble labels.
     node.append("text")
         .attr("dy", "0.2em")
         .style("text-anchor", "middle")
@@ -142,6 +148,7 @@ function render() {
         .style("fill", "black")
         .style('pointer-events', 'none');
 
+    // Legend for the packed-bubbles.
     const legend = d3.legendColor()
         .scale(colorScale)
         .title("Literacy");
@@ -151,10 +158,20 @@ function render() {
         .attr("transform", `translate(${550}, ${80})`)
         .call(legend);
 
+    /**
+     * returns the color for the bubble based on the state's literacy level.
+     * @param item bubble
+     * @returns {*} the color for the bubble based on the state's literacy level.
+     */
     function getItemColor(item) {
         return colorScale(item.data.literacy);
     }
 
+    /**
+     * returns the label of the bubble based on the state.
+     * @param item the bubble
+     * @returns {*|string} the label of the bubble based on the state.
+     */
     function getLabel(item) {
         if (item.data.density < max / 3.3) {
             return '';
@@ -162,10 +179,20 @@ function render() {
         return truncate(item.data.name);
     }
 
+    /**
+     * Formats the density data to use in the label.
+     * @param item bubble
+     * @returns {number} the density data to use in the label.
+     */
     function getValueText(item) {
         return item.data.density / 100;
     }
 
+    /**
+     * Formats the statename to fit the circle area.
+     * @param label bubble
+     * @returns {string} the state name that fits in the circle area.
+     */
     function truncate(label) {
         const max = 11;
         if (label.length > max) {
@@ -174,10 +201,23 @@ function render() {
         return label;
     }
 
+    /**
+     * Formats the font size to fit inside the circle.
+     * @param item bubble
+     * @returns {string} the font size for the label to fit the label inside the circle.
+     */
     function getFontSizeForItem(item) {
         return getFontSize(item.data.density, min, max, total);
     }
 
+    /**
+     * Calculates the font size that will fit inside a bubble.
+     * @param value the label
+     * @param min the minimum value
+     * @param max the max value
+     * @param total number of bubbles (use if creating dynamic change in number of bubbles)
+     * @returns {string} the font size.
+     */
     function getFontSize(value, min, max, total) {
         const minPx = 6;
         const maxPx = 25;

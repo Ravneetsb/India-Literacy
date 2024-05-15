@@ -1,9 +1,6 @@
 d3.csv("assets/data/roads.csv", d => {
     return {
-        state: d.State,
-        roads: +d.Roads,
-        schools: +d.Schools,
-        literacy: +d.Literacy
+        state: d.State, roads: +d.Roads, schools: +d.Schools, literacy: +d.Literacy
     }
 }).then(data => {
     console.log(data);
@@ -52,11 +49,7 @@ d3.csv("assets/data/roads.csv", d => {
         });
 
     tippy(".bubble", {
-        theme: "scatter",
-        placement: "top",
-        trigger: "mouseenter focus",
-        role: "tooltip",
-        allowHTML: "true"
+        theme: "scatter", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
     svg.append("text")
@@ -89,23 +82,16 @@ d3.csv("assets/data/roads.csv", d => {
         .style("font-size", "14px")
         .call(legend);
 
-    const annotations = [
-        {
+    const annotations = [{
 
-            note: {
-                label: "Bigger the circle, Higher the number of schools that are not accessible through all weather roads.",
-                wrap: 150,
-                align: "left"
-            },
-            connector: {
-                end: "arrow"
-            },
-            x: 300,
-            y: 200,
-            dy: -80,
-            dx: -100
-        }
-    ].map(function (d) {
+        note: {
+            label: "Bigger the circle, Higher the number of schools that are not accessible through all weather roads.",
+            wrap: 150,
+            align: "left"
+        }, connector: {
+            end: "arrow"
+        }, x: 300, y: 200, dy: -80, dx: -100
+    }].map(function (d) {
         d.color = "#E8336D";
         return d
     })

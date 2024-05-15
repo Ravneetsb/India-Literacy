@@ -133,11 +133,7 @@ d3.csv("assets/data/density.csv", d => {
     });
 
     var tips = tippy(".points", {
-        theme: "scatter",
-        placement: "top",
-        trigger: "mouseenter focus",
-        role: "tooltip",
-        allowHTML: "true"
+        theme: "scatter", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
     const legend = d3.legendColor()
@@ -149,36 +145,21 @@ d3.csv("assets/data/density.csv", d => {
         .attr("transform", `translate(${ScatterWidth}, ${80})`)
         .call(legend);
 
-    const annotations = [
-        {
-            note: {
-                label: "Telangana is an outlier. It only became a separate state a few months ago.",
-                wrap: 150,
-                align: "left"
-            },
-            connector: {
-                end: "arrow"
-            },
-            x: 210,
-            y: 340,
-            dy: -100,
-            dx: -15
-        },
-        {
-            note: {
-                label: "Click Me!",
-                wrap: 150,
-                align: "center"
-            },
-            connector: {
-                end: "arrow"
-            },
-            x: 505,
-            y: 280,
-            dy: -5,
-            dx: 50
-        }
-    ].map(function (d) {
+    const annotations = [{
+        note: {
+            label: "Telangana is an outlier. It only became a separate state a few months ago.",
+            wrap: 150,
+            align: "left"
+        }, connector: {
+            end: "arrow"
+        }, x: 210, y: 340, dy: -100, dx: -15
+    }, {
+        note: {
+            label: "Click Me!", wrap: 150, align: "center"
+        }, connector: {
+            end: "arrow"
+        }, x: 505, y: 280, dy: -5, dx: 50
+    }].map(function (d) {
         d.color = "#E8336D";
         return d
     })

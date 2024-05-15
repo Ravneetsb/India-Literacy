@@ -1,13 +1,9 @@
 const barDim = {
-    height: 1000,
-    width: 900
+    height: 1000, width: 900
 };
 
 const barMargin = {
-    top: 50,
-    left: 175,
-    right: 75,
-    bottom: 50
+    top: 50, left: 175, right: 75, bottom: 50
 };
 
 const barSvg = d3.select("#bar").append("svg")
@@ -18,10 +14,7 @@ const numFormat = d3.format(".2s");
 
 d3.csv("assets/data/pop.csv", d => {
     return {
-        state: d.State,
-        literacy: +d.Literacy,
-        sc: +d.SC,
-        st: +d.ST
+        state: d.State, literacy: +d.Literacy, sc: +d.SC, st: +d.ST
     }
 }).then(data => {
     console.log(data);
@@ -62,19 +55,11 @@ d3.csv("assets/data/pop.csv", d => {
         .attr("data-tippy-content", d => `ST students in state: ${numFormat(d.st)}`);
 
     tippy(".rightBar", {
-        theme: "bar",
-        placement: "top",
-        trigger: "mouseenter focus",
-        role: "tooltip",
-        allowHTML: "true"
+        theme: "bar", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
     tippy(".leftBar", {
-        theme: "bar",
-        placement: "top",
-        trigger: "mouseenter focus",
-        role: "tooltip",
-        allowHTML: "true"
+        theme: "bar", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
     barSvg.append("g")

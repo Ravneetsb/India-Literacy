@@ -14,7 +14,11 @@ var svg = d3.select("#scatter").append("svg")
 var decimalFormat = d3.format(".2f");
 const commaFormat = d3.format(",");
 
-
+/**
+ * Draws the axis given
+ * @param x the x Axis
+ * @param y the  y Axis
+ */
 function drawAxis(x, y) {
     svg.append("g")
         .attr("class", "xAxis")
@@ -29,6 +33,9 @@ function drawAxis(x, y) {
         .call(d3.axisLeft(y));
 }
 
+/**
+ * Draws the axis labels
+ */
 function drawAxisLabels() {
     svg.append("text")
         .attr("class", "ylabel")
@@ -75,6 +82,7 @@ d3.csv("assets/data/density.csv", d => {
         .range(['#edf8fb', '#238b45']);
 
 
+    // Add the circles.
     svg.selectAll()
         .data(data)
         .enter().append("circle")
@@ -132,7 +140,8 @@ d3.csv("assets/data/density.csv", d => {
         }
     });
 
-    var tips = tippy(".points", {
+    // Creating tooltips.
+    tippy(".points", {
         theme: "scatter", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
@@ -145,6 +154,7 @@ d3.csv("assets/data/density.csv", d => {
         .attr("transform", `translate(${ScatterWidth}, ${80})`)
         .call(legend);
 
+    // Defining annotations.
     const annotations = [{
         note: {
             label: "Telangana is an outlier. It only became a separate state a few months ago.",

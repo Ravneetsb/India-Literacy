@@ -10,7 +10,7 @@ const barSvg = d3.select("#bar").append("svg")
     .attr("height", barDim.height)
     .attr("width", barDim.width + 500);
 
-const numFormat = d3.format(".2s");
+const numFormat = d3.format(".2s");     // Formats the numbers to only 2 decimal places.
 
 d3.csv("assets/data/pop.csv", d => {
     return {
@@ -32,6 +32,7 @@ d3.csv("assets/data/pop.csv", d => {
         .range([barMargin.top, barDim.height - barMargin.bottom])
         .padding(0.1);
 
+    // Create the bars for SC students.
     barSvg.selectAll(".rightBar")
         .data(data)
         .enter().append("rect")
@@ -43,6 +44,7 @@ d3.csv("assets/data/pop.csv", d => {
         .attr("fill", "steelblue")
         .attr("data-tippy-content", d => `SC students in state: ${numFormat(d.sc)}`);
 
+    // Create the bars for ST students.
     barSvg.selectAll(".leftBar")
         .data(data)
         .enter().append("rect")
@@ -54,10 +56,12 @@ d3.csv("assets/data/pop.csv", d => {
         .attr("fill", "orange")
         .attr("data-tippy-content", d => `ST students in state: ${numFormat(d.st)}`);
 
+    // Creating tooltips for SC students.
     tippy(".rightBar", {
         theme: "bar", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });
 
+    // Creating tooltips for ST students.
     tippy(".leftBar", {
         theme: "bar", placement: "top", trigger: "mouseenter focus", role: "tooltip", allowHTML: "true"
     });

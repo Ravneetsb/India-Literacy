@@ -10,6 +10,31 @@
 
 
 
+#### Set Up
+
+##### METHOD A
+
+Follow these steps to run the code in your local machine.
+
+1. go to [github repository](https://github.com/Ravneetsb/India-Literacy)
+
+2. Click on Code and then download ZIP
+
+3. Open index.html in any browser.
+
+
+
+##### METHOD B
+
+Follow these steps to run the code in your local machine.
+
+1. extract the folder submitted in Canvas.
+2. Open the "India-Literacy-Main" folder as a project to see the code, or open index.html in any browser.
+
+
+
+
+
 > [!IMPORTANT]
 >
 > It is possible to just unzip the folder and open it as a project in any IDE. The project should be runnable without any additional steps.
